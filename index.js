@@ -17,7 +17,7 @@ app.get('/anime/zoro/:query', async (req, res) => {
         console.log("--- CONSUMET PACKAGE KEYS ---", Object.keys(consumetPkg));
         
         if (consumetPkg.ANIME) {
-            con.ANIME));
+            console.log("--- ANIME KEYS ---", Object.keys(consumetPkg.ANIME));
         }
 
         res.json({ message: "Check your Vercel logs now!" });
