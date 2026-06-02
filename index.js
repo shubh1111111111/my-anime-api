@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-// Yahan humne import karne ka tarika badal diya hai
-const { AnimeProviders } = require('@consumet/extensions');
+// Ab hum direct Gogoanime ko hi nikal rahe hain bina kisi beech wale naam ke
+const { Gogoanime } = require('@consumet/extensions');
 
 const app = express();
 app.use(cors());
@@ -14,8 +14,8 @@ app.get('/', (req, res) => {
 // Anime Search Route (Gogoanime)
 app.get('/anime/gogoanime/:query', async (req, res) => {
     try {
-        // Naye update ke hisab se ab aise call hota hai
-        const gogoanime = new AnimeProviders.Gogoanime();
+        // Direct constructor call bina kisi jhanjhat ke
+        const gogoanime = new Gogoanime();
         const results = await gogoanime.search(req.params.query);
         res.json(results);
     } catch (err) {
