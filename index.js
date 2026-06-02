@@ -7,18 +7,18 @@ app.use(cors());
 
 // Default Route
 app.get('/', (req, res) => {
-    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Official HiAnime Server" });
+    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Official AnimePahe Server" });
 });
 
-// Naya Official Search Route (Ab Hianime use karega)
-app.get('/anime/hianime/:query', async (req, res) => {
+// AnimePahe Search Route
+app.get('/anime/animepahe/:query', async (req, res) => {
     try {
-        // Log ke mutabik 'Hianime' bilkul sahi aur active constructor hai
-        const animeProvider = new consumetPkg.ANIME.Hianime();
+        // Log ke mutabik 'AnimePahe' ekdam sahi aur active provider hai
+        const animeProvider = new consumetPkg.ANIME.AnimePahe();
         const results = await animeProvider.search(req.params.query);
         res.json(results);
     } catch (err) {
-        res.status(500).json({ error: "HiAnime se data nikalne mein dikkat hui", details: err.message });
+        res.status(500).json({ error: "AnimePahe se data nikalne mein dikkat hui", details: err.message });
     }
 });
 
