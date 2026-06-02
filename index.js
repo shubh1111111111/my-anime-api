@@ -7,22 +7,18 @@ app.use(cors());
 
 // Default Route
 app.get('/', (req, res) => {
-    res.json({ status: "🟢 Live", message: "Debugging Consumet..." });
+    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Official HiAnime Server" });
 });
 
-// Debug Route
-app.get('/anime/zoro/:query', async (req, res) => {
+// Naya Official Search Route (Ab Hianime use karega)
+app.get('/anime/hianime/:query', async (req, res) => {
     try {
-        // Yeh line Vercel ke log mein poori library ka sach baahar nikaal degi
-        console.log("--- CONSUMET PACKAGE KEYS ---", Object.keys(consumetPkg));
-        
-        if (consumetPkg.ANIME) {
-            console.log("--- ANIME KEYS ---", Object.keys(consumetPkg.ANIME));
-        }
-
-        res.json({ message: "Check your Vercel logs now!" });
+        // Log ke mutabik 'Hianime' bilkul sahi aur active constructor hai
+        const animeProvider = new consumetPkg.ANIME.Hianime();
+        const results = await animeProvider.search(req.params.query);
+        res.json(results);
     } catch (err) {
-        res.status(500).json({ error: "Debug fail", details: err.message });
+        res.status(500).json({ error: "HiAnime se data nikalne mein dikkat hui", details: err.message });
     }
 });
 
