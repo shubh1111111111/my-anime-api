@@ -7,18 +7,18 @@ app.use(cors());
 
 // Default Route
 app.get('/', (req, res) => {
-    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Anime Server" });
+    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Zoro Anime Server" });
 });
 
-// Anime Search Route (Gogoanime)
-app.get('/anime/gogoanime/:query', async (req, res) => {
+// Naya Anime Search Route (Ab Zoro use karega)
+app.get('/anime/zoro/:query', async (req, res) => {
     try {
-        // Modern ESM mein yeh constructor ekdam sahi chalega
-        const gogoanime = new ANIME.Gogoanime();
-        const results = await gogoanime.search(req.params.query);
+        // Yahan humne Zoro provider call kiya hai
+        const zoro = new ANIME.Zoro();
+        const results = await zoro.search(req.params.query);
         res.json(results);
     } catch (err) {
-        res.status(500).json({ error: "Data nikalne mein dikkat hui", details: err.message });
+        res.status(500).json({ error: "Zoro se data nikalne mein dikkat hui", details: err.message });
     }
 });
 
