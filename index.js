@@ -1,26 +1,28 @@
 import express from 'express';
 import cors from 'cors';
-
-// 🚨 Sabse direct tarika: Bina kisi beech wale bundle ke, seedha Zoro extension ko nikaalo!
-import { Zoro } from '@consumet/extensions/dist/providers/anime/zoro.js';
+import consumetPkg from '@consumet/extensions';
 
 const app = express();
 app.use(cors());
 
 // Default Route
 app.get('/', (req, res) => {
-    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Direct Anime Server" });
+    res.json({ status: "🟢 Live", message: "Debugging Consumet..." });
 });
 
-// Anime Search Route
+// Debug Route
 app.get('/anime/zoro/:query', async (req, res) => {
     try {
-        // Direct object create karo kyunki humne seedha file hi import kar li hai
-        const zoroProvider = new Zoro();
-        const results = await zoroProvider.search(req.params.query);
-        res.json(results);
+        // Yeh line Vercel ke log mein poori library ka sach baahar nikaal degi
+        console.log("--- CONSUMET PACKAGE KEYS ---", Object.keys(consumetPkg));
+        
+        if (consumetPkg.ANIME) {
+            console.log("--- ANIME KEYS ---", Object.keys(consumetPkg.ANIME));
+        }
+
+        res.json({ message: "Check your Vercel logs now!" });
     } catch (err) {
-        res.status(500).json({ error: "Zoro se data nikalne mein dikkat hui", details: err.message });
+        res.status(500).json({ error: "Debug fail", details: err.message });
     }
 });
 
