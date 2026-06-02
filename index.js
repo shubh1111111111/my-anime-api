@@ -1,21 +1,22 @@
 import express from 'express';
 import cors from 'cors';
-import { ANIME } from '@consumet/extensions';
+// Yeh hai official tarika saare providers ko ek sath nikalne ka
+import { PROVIDERS } from '@consumet/extensions';
 
 const app = express();
 app.use(cors());
 
 // Default Route
 app.get('/', (req, res) => {
-    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Zoro Anime Server" });
+    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Official Anime Server" });
 });
 
-// Naya Anime Search Route (Ab Zoro use karega)
+// Official Anime Search Route
 app.get('/anime/zoro/:query', async (req, res) => {
     try {
-        // Yahan humne Zoro provider call kiya hai
-        const zoro = new ANIME.Zoro();
-        const results = await zoro.search(req.params.query);
+        // Official docs ke mutabik: PROVIDERS.anime.Zoro se hi constructor banta hai
+        const zoroProvider = new PROVIDERS.anime.Zoro();
+        const results = await zoroProvider.search(req.params.query);
         res.json(results);
     } catch (err) {
         res.status(500).json({ error: "Zoro se data nikalne mein dikkat hui", details: err.message });
