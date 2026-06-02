@@ -1,7 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-// Is baar hum poora ANIME bundle nikaal rahe hain jo safe side hai
-const { PROVIDERS } = require('@consumet/extensions');
+import express from 'express';
+import cors from 'cors';
+import { ANIME } from '@consumet/extensions';
 
 const app = express();
 app.use(cors());
@@ -14,8 +13,8 @@ app.get('/', (req, res) => {
 // Anime Search Route (Gogoanime)
 app.get('/anime/gogoanime/:query', async (req, res) => {
     try {
-        // Providers ke andar se Gogoanime dhoond kar call karega
-        const gogoanime = new PROVIDERS.anime.Gogoanime();
+        // Modern ESM mein yeh constructor ekdam sahi chalega
+        const gogoanime = new ANIME.Gogoanime();
         const results = await gogoanime.search(req.params.query);
         res.json(results);
     } catch (err) {
@@ -23,6 +22,6 @@ app.get('/anime/gogoanime/:query', async (req, res) => {
     }
 });
 
-module.exports = app;
+export default app;
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
