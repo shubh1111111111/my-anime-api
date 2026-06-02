@@ -7,18 +7,25 @@ app.use(cors());
 
 // Default Route
 app.get('/', (req, res) => {
-    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Official AnimePahe Server" });
+    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Permanent Anime Server" });
 });
 
-// AnimePahe Search Route
-app.get('/anime/animepahe/:query', async (req, res) => {
+// Gogoanime Search Route (Bina Tute Constructor Ke)
+app.get('/anime/gogoanime/:query', async (req, res) => {
     try {
-        // Log ke mutabik 'AnimePahe' ekdam sahi aur active provider hai
-        const animeProvider = new consumetPkg.ANIME.AnimePahe();
-        const results = await animeProvider.search(req.params.query);
+        // 🚨 Yeh hai sabse safe raasta: Consumet ke bne-bnae instance ko call karna
+        const gogoanimeProvider = consumetPkg.gogoanime; 
+        
+        if (!gogoanimeProvider) {
+            // Agar default instance na mile, toh naya bana lo (Naye versions ke liye safe guard)
+            const results = await consumetPkg.ANIME.Gogoanime.search(req.params.query);
+            return res.json(results);
+        }
+
+        const results = await gogoanimeProvider.search(req.params.query);
         res.json(results);
     } catch (err) {
-        res.status(500).json({ error: "AnimePahe se data nikalne mein dikkat hui", details: err.message });
+        res.status(500).json({ error: "Gogoanime se data nikalne mein dikkat hui", details: err.message });
     }
 });
 
