@@ -1,23 +1,22 @@
 import express from 'express';
 import cors from 'cors';
 
-// 🚨 Vercel ke log ke mutabik official fix:
-import consumetPkg from '@consumet/extensions';
-const { PROVIDERS } = consumetPkg;
+// 🚨 Sabse direct tarika: Bina kisi beech wale bundle ke, seedha Zoro extension ko nikaalo!
+import { Zoro } from '@consumet/extensions/dist/providers/anime/zoro.js';
 
 const app = express();
 app.use(cors());
 
 // Default Route
 app.get('/', (req, res) => {
-    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Fixed Anime Server" });
+    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Direct Anime Server" });
 });
 
-// Zoro Anime Search Route
+// Anime Search Route
 app.get('/anime/zoro/:query', async (req, res) => {
     try {
-        // Ab PROVIDERS sahi se load ho jayega bina kisi crash ke
-        const zoroProvider = new PROVIDERS.anime.Zoro();
+        // Direct object create karo kyunki humne seedha file hi import kar li hai
+        const zoroProvider = new Zoro();
         const results = await zoroProvider.search(req.params.query);
         res.json(results);
     } catch (err) {
