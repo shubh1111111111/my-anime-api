@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-// Ab hum direct Gogoanime ko hi nikal rahe hain bina kisi beech wale naam ke
-const { Gogoanime } = require('@consumet/extensions');
+// Is baar hum poora ANIME bundle nikaal rahe hain jo safe side hai
+const { PROVIDERS } = require('@consumet/extensions');
 
 const app = express();
 app.use(cors());
@@ -14,8 +14,8 @@ app.get('/', (req, res) => {
 // Anime Search Route (Gogoanime)
 app.get('/anime/gogoanime/:query', async (req, res) => {
     try {
-        // Direct constructor call bina kisi jhanjhat ke
-        const gogoanime = new Gogoanime();
+        // Providers ke andar se Gogoanime dhoond kar call karega
+        const gogoanime = new PROVIDERS.anime.Gogoanime();
         const results = await gogoanime.search(req.params.query);
         res.json(results);
     } catch (err) {
