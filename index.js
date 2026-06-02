@@ -1,20 +1,22 @@
 import express from 'express';
 import cors from 'cors';
-// Yeh hai official tarika saare providers ko ek sath nikalne ka
-import { PROVIDERS } from '@consumet/extensions';
+
+// 🚨 Vercel ke log ke mutabik official fix:
+import consumetPkg from '@consumet/extensions';
+const { PROVIDERS } = consumetPkg;
 
 const app = express();
 app.use(cors());
 
 // Default Route
 app.get('/', (req, res) => {
-    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Official Anime Server" });
+    res.json({ status: "🟢 Live", message: "Welcome to Shubh's Fixed Anime Server" });
 });
 
-// Official Anime Search Route
+// Zoro Anime Search Route
 app.get('/anime/zoro/:query', async (req, res) => {
     try {
-        // Official docs ke mutabik: PROVIDERS.anime.Zoro se hi constructor banta hai
+        // Ab PROVIDERS sahi se load ho jayega bina kisi crash ke
         const zoroProvider = new PROVIDERS.anime.Zoro();
         const results = await zoroProvider.search(req.params.query);
         res.json(results);
